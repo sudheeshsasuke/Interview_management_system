@@ -1,0 +1,33 @@
+td {
+    border: 1px solid green;
+    padding: 5px;
+    text-align: center;
+}
+
+th {
+    border: 2px solid rgb(4, 4, 110);
+    padding: 5px;
+    text-align: center;
+}
+
+#display {
+    width: 600px;
+    margin: 0 auto;
+    background: rgb(59, 253, 205);
+    box-shadow: 10px 10px 5px black;
+    padding: 30px;
+}
+
+table a {
+    color: blue;
+    text-decoration: none;
+}
+
+h1, h2 {
+    text-align: center;
+    color: orange;
+}
+
+#display h2 {
+    color: red;
+}
