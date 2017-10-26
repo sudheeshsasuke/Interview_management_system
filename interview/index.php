@@ -1,7 +1,8 @@
 <?php
 //index.php
-
-
+// Start the session
+session_start();
+//$_SESSION["score_table_indices"] = 0;
 //session
 //$session_start();
 
@@ -15,46 +16,51 @@ require_once 'marks_controller.php';
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 if('/interview/' == $uri) {
-    // show interviews
+    
+    // show home template
     showHome();
    // AddInterview();
 } elseif('/interview/index.php/add_interview' == $uri) {
+    
     //add interview
     AddInterview();
 }
 elseif('/interview/index.php/add_interview_action' == $uri) {
-    //add interview
+    
+    //add interview to db
     AddInterviewToDatabase();
 } elseif('/interview/index.php/add_participant' == $uri) {
-    //add interview
+    
+    //add participant
     AddParticipant();
 }
 elseif('/interview/index.php/add_participant_action' == $uri) {
-    //add interview
+    
+    //add participant to db
     AddParticipantToDatabase();
 } elseif('/interview/index.php/add_round' == $uri) {
-    //add interview
+    
+    //add rounds
     AddRound();
 }
 elseif('/interview/index.php/add_round_action' == $uri) {
-    //add interview
+    
+    //add rounds to db
     AddRoundToDatabase();
 } 
 elseif('/interview/index.php/add_marks' == $uri) {
-    //add interview
+    
+    //displaying marks
     DisplayMarks();
 }
 elseif('/interview/index.php/add_marks_to' == $uri && isset($_GET['id']) && isset($_GET['roundid'])) {
-    //add marks to a participant
-    $id = $_GET['id'];
-    $rid = $_GET['roundid'];
-    GetRoundMarks($id, $rid);
+    
+    //Get round Marks
+    GetRoundMarks($_GET['id'], $_GET['roundid']);
     //AddMarksToDatabase($id);
 }
 
-//when select option is selected
-//fetch the selected round marks from db
-//paste it in the form
+// normal marks form working with participant id passing via GET method
 /*
 elseif('/interview/index.php/add_marks_to' == $uri && isset($_GET['roundid'])) {
     //add marks to a participant
@@ -63,13 +69,24 @@ elseif('/interview/index.php/add_marks_to' == $uri && isset($_GET['roundid'])) {
 }
 */
 
+//normal marks form action part
+/*
 elseif('/interview/index.php/add_mark_action' == $uri && isset($_GET['id'])) {
     //add marks to a participant
     $id = $_GET['id'];
     AddMark($id);
 }
+*/
+
+//Debugging marks form action part
+elseif('/interview/index.php/add_mark_action' == $uri && isset($_GET['id']) && isset($_GET['roundid'])) {
+    
+    //add marks to int_score table after submission
+    AddMark($_GET['id'], $_GET['roundid']);
+}
 elseif('/interview/index.php/display_marks' == $uri) {
-    //add marks to a participant
+    
+    //Display Marks()
     DisplayMarks();
 }
 else 

@@ -1,8 +1,8 @@
 <?php ob_start()?>
+    
     <div>
         <h2>ADD MARKS</h2>
-        <form action="http://blog/interview/index.php/add_mark_action?id=<?php echo $id;?>&roundid=1" 
-            method="post" onclick="return Validate()"  >
+        <form action="http://blog/interview/index.php/add_mark_action?id=<?php echo $id;?>&roundid=<?= $_GET['roundid'];?>" method="post" onclick="return Validate()"  >
             
             <br><br>
             <select name="round_score" onchange="self.location='http://blog/interview/index.php/add_marks_to?id=<?php echo $_GET['id'];?>&roundid='+ this.value">
@@ -17,6 +17,7 @@
                     <!--check if one option is selected-->
                     <?php if($_GET['roundid'] === $round['id']):?>
                         <option value="<?php echo $round['id'];?>" selected><?php echo $round['round'];?></option> 
+                        <?php $val = $round['id'];?>
                     <?php else:?>
                         <option value="<?php echo $round['id'];?>" ><?php echo $round['round'];?></option>                   
                     <?php endif;?>

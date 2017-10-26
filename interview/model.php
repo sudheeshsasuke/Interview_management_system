@@ -111,13 +111,15 @@ function AddRoundRecord() {
     $link =  OpenDatabaseConnection();
     
     $stmt = $link->prepare("INSERT INTO `rounds`
-    (`round`, `maxscore`, `active`) 
+    (`round`, `maxscore`, `acitve`) 
     VALUES (:round, :max, :active)");
     
     $stmt->bindParam(':round', $_POST['round']);
     $stmt->bindParam(':max', $_POST['max']);
     $stmt->bindParam(':active', $_POST['active']);
-    $stmt->execute();
+
+    //debug
+    $t = $stmt->execute();
     
     //close database connection
     CloseDatabaseconnection($link);
@@ -184,24 +186,49 @@ function FetchData($id) {
 }
 
 //add marks to db
-function AddMarksRecord($id) {
+function AddMarksRecord($id, $rid) {
     //open database connection
     $link =  OpenDatabaseConnection();
     
-    //get participants
-    $stmt = $link->prepare("INSERT INTO `int_score`
-    (`round_id`, `part_id`, `score`, `comment`, `int_id`) 
-    VALUES (:roundid, :part_id, :score, :comment, :intid)");
+    //check whether marks where added previo
+    //$x = array();
+    $x = $_SESSION["score_table_indices"][$id][$rid];
 
-    $stmt->bindParam(':roundid', $_POST['round_score']);
-    $stmt->bindParam(':part_id', $id);
-    $stmt->bindParam(':score', $_POST['curr_score']);
-    $stmt->bindParam(':comment', $_POST['comment']);
+    if($x > 1) {
+
+        $stmt = $link->prepare("UPDATE `int_score` SET 
+        `score`= :score,`comment`= :comment WHERE id = :id
+        ");
+
+        $stmt->bindParam(':id', $x);
+        $stmt->bindParam(':score', $_POST['curr_score']);
+        $stmt->bindParam(':comment', $_POST['comment']);
+        
+        $stmt->execute();
+    }
+    else {
+
+        //normal add where no marks where added previously
+        //get participants
+        $stmt = $link->prepare("INSERT INTO `int_score`
+        (`round_id`, `part_id`, `score`, `comment`, `int_id`) 
+        VALUES (:roundid, :part_id, :score, :comment, :intid)
+        ");
+
+        $stmt->bindParam(':roundid', $_POST['round_score']);
+        $stmt->bindParam(':part_id', $id);
+        $stmt->bindParam(':score', $_POST['curr_score']);
+        $stmt->bindParam(':comment', $_POST['comment']);
+        
+        //currently we have only one interview
+        $stmt->bindParam(':intid', $val);
+        $val = 1;
+
+        //debug
+        $t = $stmt->execute();
+        $v = $t;
+    }
     
-    //currently we have only one interview
-    $stmt->bindParam(':intid', $val);
-    $val = 1;
-    $stmt->execute();
     
     //close database connection
     CloseDatabaseconnection($link);
@@ -247,7 +274,7 @@ function GetMarks($data) {
 */
 
     //optimized code part
-    $stmt = $link->prepare("SELECT i.score, p.id, r.id AS rid FROM participants AS p
+    $stmt = $link->prepare("SELECT i.id AS markid, i.score, p.id, r.id AS rid FROM participants AS p
     LEFT JOIN int_score AS i ON p.id = i.part_id 
     LEFT JOIN rounds AS r ON r.id = i.round_id
     WHERE r.acitve = :val");
@@ -268,9 +295,12 @@ function GetMarks($data) {
 
     foreach($rows as $row) {
         $marks[$row['id']][$row['rid']] = $row['score'];
+        $table_index[$row['id']][$row['rid']] = $row['markid'];
     }
-
-    return $marks;
+    
+    $data['marks_of_table'] = $marks;
+    $data['index'] = $table_index; 
+    return $data;
 }
 
 //get round marks for 4rid

@@ -11,7 +11,17 @@ function DisplayMarks() {
     $datas = GetData();
     
     //get marks returns rows from int_score table
-    $score = GetMarks($datas);
+    $scr = GetMarks($datas);
+
+    //get score
+    $score = $scr['marks_of_table'];
+
+    //get index
+    $index = $scr['index'];
+
+    // Set session variables
+    $_SESSION["score_table_indices"] = $index;
+    
     require 'templates/display.tpl.php';
 }
 
@@ -33,9 +43,9 @@ function AddMarksToDatabase($id, $marks1) {
     //ShowHome();
 }
 
-function AddMark($id)
+function AddMark($id, $rid)
 {
-    AddMarksRecord($id);
+    AddMarksRecord($id, $rid);
     header('Location: http://blog/interview/index.php/display_marks');
     DisplayMarks();
 }
