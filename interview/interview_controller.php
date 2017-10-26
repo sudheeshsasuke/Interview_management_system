@@ -22,7 +22,19 @@ function ShowInterviews() {
 
 //add interview to databse
 function AddInterviewToDatabase() {
-    AddInterviewrecord();
+    
+    //check captcha first
+    if($_SESSION['captcha'] == $_POST['captcha']) {
+       
+        //only then add the details to db
+        AddInterviewrecord();
+    }
+    else {
+
+        //redirect to interview registration form
+        header('Location: http://blog/interview/index.php/add_interview');
+    }
+    
     //ShowHome();
     RedirectHome();
 }

@@ -1,4 +1,10 @@
 <?php ob_start()?>
+<?php
+
+//use captcha file
+require_once 'templates/captcha.tpl.php';
+
+?>
     <div>
         <h2>Register Interview</h2>
         <form action="http://blog/interview/index.php/add_interview_action" method="post" onclick="return Validate()">
@@ -13,6 +19,10 @@
             <br><br>
             End Date<br>
             <input type="date"  name="end_date" \>
+            <br><br>
+            <?php echo "<b>captcha<b><br><br>";
+            echo $num1 . $operator . $num2; ?><br><br>
+            <input type="number" placeholder="captcha result"  name="captcha" \>
             <br><br>
             <input type="submit" value="submit" \>
         </form>

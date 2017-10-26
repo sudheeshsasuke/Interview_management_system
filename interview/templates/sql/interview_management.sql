@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 25, 2017 at 07:39 PM
--- Server version: 5.7.19-0ubuntu0.16.04.1
+-- Generation Time: Oct 26, 2017 at 05:25 PM
+-- Server version: 5.7.20-0ubuntu0.16.04.1
 -- PHP Version: 7.0.22-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -89,7 +89,11 @@ INSERT INTO `interview` (`id`, `title`, `location`, `startdate`, `enddate`) VALU
 (1, 'software tester', 'kochi', '2017-10-25', '2017-10-26'),
 (2, 'software tester', 'kochi', '2017-10-25', '2017-10-26'),
 (3, 'Trainee', 'tvm', '2017-10-04', '2017-10-05'),
-(4, 'analyst', 'Banglore', '2017-10-04', '2017-10-12');
+(4, 'analyst', 'Banglore', '2017-10-04', '2017-10-12'),
+(5, 'ERP Developer', 'TVM', '2017-10-04', '2017-10-05'),
+(6, 'ERP Developer', 'TVM', '2017-10-04', '2017-10-05'),
+(7, 'Web Designer', 'kochi', '2017-10-11', '2017-10-11'),
+(8, 'erte', 'kochi', '2017-10-04', '2017-10-05');
 
 -- --------------------------------------------------------
 
@@ -113,21 +117,11 @@ CREATE TABLE `int_score` (
 INSERT INTO `int_score` (`id`, `round_id`, `part_id`, `score`, `comment`, `int_id`) VALUES
 (1, 1, 2, 34, 'yry', 1),
 (2, 3, 2, 56, 'dfgdg', 1),
-(3, 1, 3, 45, 'ghfh', 1),
-(4, 2, 3, 45, 'ghfh', 1),
-(5, 2, 3, 45, 'ghfh', 1),
+(3, 1, 3, 950, 'ghfh', 1),
+(4, 2, 3, 500, 'ghfh', 1),
 (6, 1, 4, 34, 'fyhty', 1),
-(7, 1, 4, 34, 'fyhty', 1),
 (8, 3, 1, 68, 'tyry', 1),
-(9, 4, 3, 34, 'dfdf', 1),
-(10, 4, 2, 34, 'fdg', 1),
-(11, 4, 2, 34, 'fdg', 1),
-(12, 3, 2, 5, 'new comment', 1),
-(13, 3, 2, 5, 'dfgdg', 1),
-(14, 1, 2, 34, 'yry', 1),
-(15, 1, 2, 35, 'yry', 1),
-(16, 1, 2, 45, 'yry', 1),
-(17, 2, 2, 3, 'hello', 1);
+(9, 4, 3, 34, 'dfdf', 1);
 
 -- --------------------------------------------------------
 
@@ -147,9 +141,9 @@ CREATE TABLE `participants` (
 
 INSERT INTO `participants` (`id`, `reg_id`, `name`) VALUES
 (1, 1234, 'ben'),
-(2, 1000, 'geln'),
+(2, 1000, 'glen'),
 (3, 1001, 'anu'),
-(4, 1001, 'anu');
+(4, 1001, 'hari');
 
 -- --------------------------------------------------------
 
@@ -197,7 +191,9 @@ INSERT INTO `rounds` (`id`, `round`, `maxscore`, `acitve`) VALUES
 (1, 'HR', 100, 1),
 (2, 'Technical Interview', 100, 1),
 (3, 'Aptitude', 100, 1),
-(4, 'Englisht Test', 100, 1);
+(4, 'Englisht Test', 100, 1),
+(5, 'Machine Test', 10, 0),
+(6, 'Soft Skills', 50, 0);
 
 --
 -- Indexes for dumped tables
@@ -263,12 +259,12 @@ ALTER TABLE `experience`
 -- AUTO_INCREMENT for table `interview`
 --
 ALTER TABLE `interview`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `int_score`
 --
 ALTER TABLE `int_score`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `participants`
 --
@@ -283,7 +279,7 @@ ALTER TABLE `part_details`
 -- AUTO_INCREMENT for table `rounds`
 --
 ALTER TABLE `rounds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

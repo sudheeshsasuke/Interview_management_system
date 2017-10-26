@@ -10,7 +10,20 @@ function AddRound() {
 //add participant to databse
 //add interview to databse
 function AddRoundToDatabase() {
-    AddRoundRecord();
+     
+    //check captcha first
+     if($_SESSION['captcha'] == $_POST['captcha']) {
+        
+         //only then add the details to db
+         AddRoundRecord();
+     }
+     else {
+ 
+         //redirect to interview registration form
+         header('Location: http://blog/interview/index.php/add_round');
+     }
+
+    //redirect home
     RedirectHome();
 }
 ?>
