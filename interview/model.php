@@ -322,4 +322,27 @@ function GetroundMarksRecords($id, $rid)
     return $row;
 }
 
+//image cpatcha
+function captcha_image($value) {
+    // Create a 100*30 image
+    $im = imagecreate(100, 30);
+
+    // White background and blue text
+    $bg = imagecolorallocate($im, 255, 255, 255);
+    $textcolor = imagecolorallocate($im, 0, 0, 255);
+
+    // Write the string at the top left
+    imagestring($im, 5, 5, 5 , $value, $textcolor);
+
+    // Output the image
+    //header('Content-type: image/png');
+    ob_start();
+    imagepng($im);
+    imagedestroy($im);
+    $image = ob_get_clean();
+
+    $fp = fopen("/home/user/Projects/trainig_with_git/sudheesh.qbgxc.zyxware-gmail.com/interview/img/captcha.png", 'w+');
+    fwrite($fp, $image);
+}
+
 ?>

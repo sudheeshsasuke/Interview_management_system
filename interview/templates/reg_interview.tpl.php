@@ -21,7 +21,12 @@ require_once 'templates/captcha.tpl.php';
             <input type="date"  name="end_date" \>
             <br><br>
             <?php echo "<b>captcha<b><br><br>";
-            echo $num1 . $operator . $num2; ?><br><br>
+            $captcha_string = $num1 . $operator . $num2 ." = ";
+            //echo $captcha_string 
+            captcha_image($captcha_string);
+            ?>
+            <img src="http://blog/interview/img/captcha.png" alt="captcha image" />
+            <br><br>
             <input type="number" placeholder="captcha result"  name="captcha" \>
             <br><br>
             <input type="submit" value="submit" \>
